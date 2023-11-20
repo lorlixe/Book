@@ -22,6 +22,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res) => {
+  res.json({ message: "API connectée" });
+});
+
 app.use("/api/user", userRoutes);
 app.use("/api/book", bookRoutes);
 app.use("/api/recommendation", recommendationRoutes);
