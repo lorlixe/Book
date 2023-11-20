@@ -18,6 +18,13 @@ exports.createMessage = (req, res) => {
   if (MessageObject.content == null) {
     return res.status(400).json({ error: "un paramètre n'a pas été complété" });
   }
+  User.findOne({ where: { id: MessageObject.receiver_id } }).then(
+    (receiver) => {
+      if (receiver == null) {
+        return res.status(400).json({ error: "Ce des" });
+      }
+    }
+  );
 
   User.findOne({ where: { id: FoundUserId } })
     .then((User) => {

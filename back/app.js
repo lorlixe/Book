@@ -4,6 +4,7 @@ const userRoutes = require("./routes/user_routes");
 const bookRoutes = require("./routes/book_routes");
 const recommendationRoutes = require("./routes/recommendation_routes");
 const messageRoutes = require("./routes/message_routes");
+const reviewRoutes = require("./routes/review_routes");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -25,5 +26,6 @@ app.use("/api/user", userRoutes);
 app.use("/api/book", bookRoutes);
 app.use("/api/recommendation", recommendationRoutes);
 app.use("/api/message", messageRoutes);
+app.use("/api/review", reviewRoutes);
 
 module.exports = app;

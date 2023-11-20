@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Exchange.init(
     {
-      book_id: DataTypes.INTEGER,
-      owner_id: DataTypes.INTEGER,
+      BookId: DataTypes.INTEGER,
+      UserId: DataTypes.INTEGER,
       requester_id: DataTypes.INTEGER,
       status: DataTypes.STRING,
     },
