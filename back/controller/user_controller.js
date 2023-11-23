@@ -19,6 +19,13 @@ exports.signup = (req, res, next) => {
 
   // vérifier si l'utilisateur existe
   User.findOne({ where: { email: ObjectUser.email } })
+    .then((email) => {
+      console.log(email);
+
+      if (email) {
+        return res.status(400).json({ error: "L'utilisateur existe déjà" });
+      }
+    })
     .then(function (userFound) {
       if (!userFound) {
         bcrypt.hash(req.body.password, 10).then((hash) => {
@@ -38,18 +45,20 @@ exports.signup = (req, res, next) => {
         });
       }
     })
-    .catch((error) =>
-      res.status(500).json({ error: "Utilisateur  existe déjà !" })
-    );
+    .catch((error) => res.status(500).json({ error }));
 };
 
 //connexion utilisateur
 
 exports.login = (req, res, next) => {
   User.findOne({
+    attribute: ["email"],
     where: { email: req.body.email },
   })
     .then((user) => {
+      if (!user) {
+        return res.status(401).json({ error: "Utilisateur non trouvé !" });
+      }
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
@@ -65,7 +74,5 @@ exports.login = (req, res, next) => {
         })
         .catch((error) => res.status(500).json({ error }));
     })
-    .catch((error) =>
-      res.status(500).json({ error: "Utilisateur non trouvé !" })
-    );
+    .catch((error) => res.status(500).json({ error }));
 };

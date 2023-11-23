@@ -1,4 +1,5 @@
 "use strict";
+require("dotenv").config();
 
 const fs = require("fs");
 const path = require("path");
@@ -7,10 +8,8 @@ const process = require("process");
 const basename = path.basename(__filename);
 const db = {};
 
-let sequelize;
-
-sequelize = new Sequelize(
-  process.env.DB_HOST,
+let sequelize = new Sequelize(
+  process.env.DB_DATABASE,
   process.env.DB_USERNAME,
   process.env.DB_PASSWORD,
   { dialect: "mysql" }
